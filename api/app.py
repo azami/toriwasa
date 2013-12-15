@@ -5,7 +5,7 @@ import time
 import logging
 import tweepy
 import ConfigParser
-from flask import Flask, session, request, abort, jsonify, json
+from flask import Flask, session, request, abort, json
 
 config = ConfigParser.ConfigParser()
 config.read('app.ini')
@@ -26,7 +26,6 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 
 @app.route('/user')
 def user():
-    print request.url_root
     user = dict(session) if 'name' in session else {}
     return json.dumps(user)
 
@@ -38,6 +37,7 @@ def authorization_url():
 
 @app.route('/auth/verify')
 def verify():
+    print request.args
     try:
         token = auth.get_access_token(request.args['oauth_verifier'])
         if not token:
@@ -58,7 +58,7 @@ def unauth():
     return ('', 204)
 
 
-@app.route('/create/<thread>', methods=['POST'])
+@app.route('/thread/<thread>/create', methods=['POST'])
 def create_thread(thread):
     upload_dir = os.path.join(
         app.config['UPLOAD_FOLDER'], session['name'], thread)
@@ -68,17 +68,17 @@ def create_thread(thread):
     return (thread, 201)
 
 
-@app.route('/upload/<thread>', methods=['POST'])
+@app.route('/thread/<thread>/upload', methods=['POST'])
 def upload(thread):
     pict = request.files['file']
     ext = os.path.splitext(pict.filename)[1]
-    if ext not in ['jpg', 'gif', 'png']:
+    if ext not in ['.jpg', '.gif', '.png']:
         return abort(400)
     upload_dir = os.path.join(
         app.config['UPLOAD_FOLDER'], session['name'], thread)
     if not os.path.exists(upload_dir):
         return abort(400)
-    pict_name = '%d.%s' % (time.time(), ext)
+    pict_name = '%d%s' % (time.time(), ext)
     pict.save(os.path.join(upload_dir, pict_name))
     return (pict_name, 201)
 
@@ -86,13 +86,13 @@ def upload(thread):
 @app.route('/threads')
 def threads():
     users = os.listdir(app.config['UPLOAD_FOLDER'])
-    threads = {
-        user: os.listdir(os.path.join(app.config['UPLOAD_FOLDER'], user))
-        for user in users}
-    return jsonify(threads)
+    threads = {user: os.listdir(os.path.join(app.config['UPLOAD_FOLDER'],
+                                             user))
+               for user in users}
+    return json.dumps(threads)
 
 
-@app.route('/pictures/<user>/<thread>')
+@app.route('/<user>/<thread>')
 def pictures(user, thread):
     return json.dumps(os.listdir(
         os.path.join(app.config['UPLOAD_FOLDER'], user, thread)))
