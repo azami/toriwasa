@@ -37,7 +37,6 @@ def authorization_url():
 
 @app.route('/auth/verify')
 def verify():
-    print request.args
     try:
         token = auth.get_access_token(request.args['oauth_verifier'])
         if not token:
