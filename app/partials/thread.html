@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-3">
+    <button ng-if="user.name == owner" type="button" class="btn btn-default" data-toggle="modal" data-target="#upload"><i class="fa fa-plus-circle"></i> 画像追加</button>
+  </div>
+  <div class="col-md-9">
+    <div class="panel panel-primary">
+      <div class="panel-heading">@{{owner}}/{{thread}}</div>
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="pict in picts">
+          <img src="api/uploads/{{owner}}/{{thread}}/{{pict}}">
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div ng-if="user.name == owner" class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="uploadLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="uploadLabel"><i class="fa fa-plus-circle"></i> 画像追加</h4>
+      </div>
+      <div class="modal-body">
+        <form name="form" role="form" class="css-from" novalidate>
+          <div class="form-group">
+            <label for="upload"><i class="fa fa-picture-o"></i> ファイル選択</label>
+            <input type="file" ng-model="file" class="form-control" placeholder="" name="file" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="upload(thread)" ng-disabled="form.$invalid">Upload</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

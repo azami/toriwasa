@@ -1,0 +1,62 @@
+<!doctype html>
+<html ng-app="toriwasaApp">
+  <head>
+    <meta charset="utf-8">
+      <title>toriwasa</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-resource.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <script src="/js/app.js"></script>
+        <script src="/js/controllers.js"></script>
+        <script src="/js/services.js"></script>
+        <script src="/js/ui-bootstrap.min.js"></script>
+
+  </head>
+  <body>
+    <header>
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">toriwasa</a>
+            </div>
+            <div class="navbar-collapse collapse" ng-controller="Init" ng-init="$Init">
+              <ul class="nav navbar-nav">
+                <li><a href="#/"><i class="fa fa-list"></i> my threads</a></li>
+              </ul>
+              <div class="navbar-form navbar-right" id="user">
+                <div ng-if="! user.name">
+                    <button ng-click="signin()" class="btn btn-primary"><i class="fa fa-twitter"></i> Sign in</button>
+                </div>
+                <div ng-if="user.name">
+                    @{{user.name}} <img src="{{user.image}}">
+                </div>
+              </div>
+            </div><!--/.navbar-collapse -->
+          </div>
+        </div>
+    </header>
+
+    <div class="view-container container">
+      <div ng-view class="view-frame"></div>
+    </div>
+
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">toriwasa</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://twitter.com/4d414b49" property="cc:attributionName" rel="cc:attributionURL">@4d414b49</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
