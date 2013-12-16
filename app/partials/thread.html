@@ -7,7 +7,7 @@
       <div class="panel-heading">@{{owner}}/{{thread}}</div>
       <ul class="list-group">
         <li class="list-group-item" ng-repeat="pict in picts">
-          <img src="api/uploads/{{owner}}/{{thread}}/{{pict}}">
+          <img ng-src="api/uploads/{{owner}}/{{thread}}/{{pict}}">
         </li>
       </ul>
     </div>
