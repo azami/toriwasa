@@ -5,8 +5,6 @@
 var toriwasaApp = angular.module('toriwasaApp', [
   'ngRoute',
   'toriwasaControllers',
-  'toriwasaServices',
-  'ui.bootstrap'
 ]);
 
 toriwasaApp.config(['$routeProvider',
