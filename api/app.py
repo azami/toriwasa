@@ -93,8 +93,10 @@ def threads():
 
 @app.route('/<user>/<thread>')
 def pictures(user, thread):
-    return json.dumps(os.listdir(
-        os.path.join(app.config['UPLOAD_FOLDER'], user, thread)))
+    return json.dumps(
+        sorted(os.listdir(
+            os.path.join(app.config['UPLOAD_FOLDER'], user, thread)),
+            key=lambda x: os.path.splitext(x)[0]))
 
 
 if app.debug:
