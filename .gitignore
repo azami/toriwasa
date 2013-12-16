@@ -1,4 +1,6 @@
 *.ini
 .*.swp
 *.jpg
+*.png
+*.pyc
 *.gif
